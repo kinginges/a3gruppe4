@@ -47,10 +47,12 @@ def send_command(command, arguments):
     # TODO: Implement this (part of step 3)
     # Hint: concatenate the command and the arguments
     # Hint: remember to send the newline at the end
-    try:
-        msg command argument\n
-    expect IOError as e:
-        print("Command not supported:", e)
+    if arguments == None:
+        cmd_to_send = command + "\n"
+    else:
+        cmd_to_send = command + " " + arguments + "\n"
+    cmd_as_bytes = cmd_to_send.encode()
+    client_socket.send(cmd_as_bytes)
     pass
 
 
@@ -78,9 +80,11 @@ def get_servers_response():
     Wait until a response command is received from the server
     :return: The response of the server, the whole line as a single string
     """
+    global client_socket
     # TODO Step 4: implement this function
     # Hint: reuse read_one_line (copied from the tutorial-code)
-    return None
+    server_response = read_one_line(client_socket)
+    return server_response
 
 
 def connect_to_server():
@@ -100,13 +104,14 @@ def connect_to_server():
     # Hint: send the sync command according to the protocol
     # Hint: create function send_command(command, arguments) which you will use to send this and all other commands
     # to the server
+    send_command(async, None)
     
     # TODO Step 4: wait for the servers response and find out whether the switch to SYNC mode was successful
     # Hint: implement the get_servers_response function first - it should wait for one response command from the server
     # and return the server's response (we expect "modeok" response here). This get_servers_response() function
     # will come in handy later as well - when we will want to check the server's response to login, messages etc
     print("CONNECTION NOT IMPLEMENTED!")
-
+    
 
 def disconnect_from_server():
     # Must have these two lines, otherwise the function will not "see" the global variables that we will change here
