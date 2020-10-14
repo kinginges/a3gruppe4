@@ -86,6 +86,11 @@ def connect_to_server():
 
     # TODO Step 1: implement connection establishment
     # Hint: create a socket, connect, handle exceptions, then change current_state accordingly
+    try:
+        client_socket.connect((SERVER_HOST, TPC_PORT))
+        current_state = states[1]
+    except IOError as e:
+        print("An error occured:", e)
 
     # TODO Step 3: switch to sync mode
     # Hint: send the sync command according to the protocol
