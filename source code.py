@@ -153,32 +153,45 @@ def authorisation():
         print("You've succesfully logged in!")
     else:
         print(servers_response)
+    current_state = states[2]
 
 def public_message():
-     
+
     message = str(input("Enter your message: "))
     send_command("msg", message)
-    
+
     servers_response = get_servers_response()
-    if servers_response == "msgok"
+    if servers_response == "msgok":
         print("Your message was sent!")
     else:
-        print(server_response)
-    
+        print(servers_response)
+
 def private_message():
-    
+
     receiver = str(input("Enter the recipients name: "))
     message = str(input("Enter your message: "))
     argument = receiver + " " + message
     send_command("privmsg", argument)
-    
+
     servers_response = get_servers_response()
-    if servers_response == "msgok"
+    if servers_response == "msgok":
         print("Your message was sent!")
     else:
-        print(server_response)
-    
-    
+        print(servers_response)
+
+def check_inbox():
+    send_command("inbox", None)
+    response = get_servers_response()
+    print("You've got", response, "messages!")
+
+def help_me():
+    send_command("help", None)
+    print(get_servers_response())
+
+def members():
+    send_command("users", None)
+    print(get_servers_response())
+
 available_actions = [
     {
         "description": "Connect to a chat server",
@@ -216,7 +229,7 @@ available_actions = [
     },
     {
         "description": "Send a private message",
-        "valid_states": ["authorized"],
+        "valid_states": ["connected", "authorized"],
         # TODO Step 8 - implement sending a private message
         # Hint: ask the user to input the recipient and message from the keyboard
         # Hint: you can reuse the send_command() function to send the "privmsg" command
@@ -225,12 +238,12 @@ available_actions = [
     },
     {
         "description": "Read messages in the inbox",
-        "valid_states": ["connected", "authorized"],
+        "valid_states": ["authorized"],
         # TODO Step 9 - implement reading messages from the inbox.
         # Hint: send the inbox command, find out how many messages there are. Then parse messages
         # one by one: find if it is a private or public message, who is the sender. Print this
         # information in a user friendly way
-        "function": None
+        "function": check_inbox
     },
     {
         "description": "See list of users",
@@ -239,7 +252,13 @@ available_actions = [
         # Hint: use the provided chat client tools and analyze traffic with Wireshark to find out how
         # the user list is reported. Then implement a function which gets the user list from the server
         # and prints the list of usernames
-        "function": None
+        "function": members
+    },
+    {
+        "description": "Help",
+        "valid_states": ["connected", "authorized"],
+        # help
+        "function": help_me
     },
     {
         "description": "Get a joke",
