@@ -87,6 +87,27 @@ def get_servers_response():
     return server_response
 
 
+def get_inbox_response():
+    """
+    Wait until a response command is received from the server
+    :return: The response of the server, the whole line as a single string
+    """
+    global client_socket
+    # TODO Step 4: implement this function
+    # Hint: reuse read_one_line (copied from the tutorial-code)
+    server_response = read_inbox(client_socket)
+    return server_response
+
+def read_inbox(sock):
+    """
+    Read one line of text from a socket
+    :param sock: The socket to read from.
+    :return:
+    """
+    message = sock.recv(2500).decode()
+    return message
+
+
 def connect_to_server():
     # Must have these two lines, otherwise the function will not "see" the global variables that we will change here
     global client_socket
@@ -110,7 +131,6 @@ def connect_to_server():
     # Hint: implement the get_servers_response function first - it should wait for one response command from the server
     # and return the server's response (we expect "modeok" response here). This get_servers_response() function
     # will come in handy later as well - when we will want to check the server's response to login, messages etc
-    print("CONNECTION NOT IMPLEMENTED!")
     servers_response = get_servers_response()
     if servers_response == "modeok":
         print("Managed to switch to synchronous mode")
@@ -180,9 +200,15 @@ def private_message():
         print(servers_response)
 
 def check_inbox():
+    global client_socket
+
     send_command("inbox", None)
-    response = get_servers_response()
-    print("You've got", response, "messages!")
+    response = get_inbox_response()
+    if response == "inbox 0":
+        print("Inbox is empty.")
+    else:
+        print(response)
+
 
 def help_me():
     send_command("help", None)
