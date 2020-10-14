@@ -47,6 +47,10 @@ def send_command(command, arguments):
     # TODO: Implement this (part of step 3)
     # Hint: concatenate the command and the arguments
     # Hint: remember to send the newline at the end
+    try:
+        msg command argument\n
+    expect IOError as e:
+        print("Command not supported:", e)
     pass
 
 
@@ -96,7 +100,7 @@ def connect_to_server():
     # Hint: send the sync command according to the protocol
     # Hint: create function send_command(command, arguments) which you will use to send this and all other commands
     # to the server
-
+    
     # TODO Step 4: wait for the servers response and find out whether the switch to SYNC mode was successful
     # Hint: implement the get_servers_response function first - it should wait for one response command from the server
     # and return the server's response (we expect "modeok" response here). This get_servers_response() function
