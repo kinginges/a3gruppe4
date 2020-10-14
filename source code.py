@@ -104,14 +104,19 @@ def connect_to_server():
     # Hint: send the sync command according to the protocol
     # Hint: create function send_command(command, arguments) which you will use to send this and all other commands
     # to the server
-    send_command(async, None)
+    send_command(sync, None)
     
     # TODO Step 4: wait for the servers response and find out whether the switch to SYNC mode was successful
     # Hint: implement the get_servers_response function first - it should wait for one response command from the server
     # and return the server's response (we expect "modeok" response here). This get_servers_response() function
     # will come in handy later as well - when we will want to check the server's response to login, messages etc
     print("CONNECTION NOT IMPLEMENTED!")
-    
+    servers_response = get_servers_response()
+    if servers_response() == "modeok"
+        print("Managed to switch to synchronous mode")
+    else:
+        print("Error! Didn't manage to switch to synchronous mode")
+        
 
 def disconnect_from_server():
     # Must have these two lines, otherwise the function will not "see" the global variables that we will change here
