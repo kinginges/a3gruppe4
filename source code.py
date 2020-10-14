@@ -24,7 +24,7 @@ current_state = "disconnected"  # The current state of the system
 must_run = True
 # Use this variable to create socket connection to the chat server
 # Note: the "type: socket" is a hint to PyCharm about the type of values we will assign to the variable
-client_socket = None  # type: socket
+client_socket=socket(AF_INET, SOCK_STREAM)  # type: socket
 
 
 def quit_application():
@@ -95,7 +95,7 @@ def connect_to_server():
     # TODO Step 1: implement connection establishment
     # Hint: create a socket, connect, handle exceptions, then change current_state accordingly
     try:
-        client_socket.connect((SERVER_HOST, TPC_PORT))
+        client_socket.connect((SERVER_HOST, TCP_PORT))
         current_state = states[1]
     except IOError as e:
         print("An error occured:", e)
@@ -104,25 +104,25 @@ def connect_to_server():
     # Hint: send the sync command according to the protocol
     # Hint: create function send_command(command, arguments) which you will use to send this and all other commands
     # to the server
-    send_command(sync, None)
-    
+    send_command("sync", "")
+
     # TODO Step 4: wait for the servers response and find out whether the switch to SYNC mode was successful
     # Hint: implement the get_servers_response function first - it should wait for one response command from the server
     # and return the server's response (we expect "modeok" response here). This get_servers_response() function
     # will come in handy later as well - when we will want to check the server's response to login, messages etc
     print("CONNECTION NOT IMPLEMENTED!")
     servers_response = get_servers_response()
-    if servers_response() == "modeok"
+    if servers_response == "modeok":
         print("Managed to switch to synchronous mode")
     else:
         print("Error! Didn't manage to switch to synchronous mode")
-        
+
 
 def disconnect_from_server():
     # Must have these two lines, otherwise the function will not "see" the global variables that we will change here
     global client_socket
     global current_state
-    
+
     # TODO Step 2: Implement disconnect
     # Hint: close the socket, handle exceptions, update current_state accordingly
     try:
@@ -130,7 +130,7 @@ def disconnect_from_server():
         current_state = states[0]
     except IOError as e:
         print("An error occured:", e)
-        
+
     pass
 
 
@@ -144,18 +144,16 @@ function: a function to call when the user chooses this particular action. The f
 """
 def authorisation():
     global current_state
-    
+
     username = str(input("Enter your username: "))
     send_command("login", username)
-    
+
     servers_response = get_servers_response()
-    if servers_response == "modeok"
+    if servers_response == "modeok":
         print("You've succesfully logged in!")
     else:
-        print(server_response)
-    current_state = states[2]
-    
-    
+        print(servers_response)
+
 def public_message():
      
     message = str(input("Enter your message: "))
