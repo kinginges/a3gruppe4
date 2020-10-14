@@ -13,8 +13,8 @@ states = [
     "connected",  # Connected to a chat server, but not authorized (not logged in)
     "authorized"  # Connected and authorized (logged in)
 ]
-TCP_PORT = 1300  # TCP port used for communication
-SERVER_HOST = "localhost"  # Set this to either hostname (domain) or IP address of the chat server
+TCP_PORT = 1301  # TCP port used for communication
+SERVER_HOST = "datakomm.work"  # Set this to either hostname (domain) or IP address of the chat server
 
 # --------------------
 # State variables
