@@ -153,6 +153,32 @@ def authorisation():
         print("You've succesfully logged in!")
     else:
         print(server_response)
+    current_state = states[2]
+    
+    
+def public_message():
+     
+    message = str(input("Enter your message: "))
+    send_command("msg", message)
+    
+    servers_response = get_servers_response()
+    if servers_response == "msgok"
+        print("Your message was sent!")
+    else:
+        print(server_response)
+    
+def private_message():
+    
+    receiver = str(input("Enter the recipients name: "))
+    message = str(input("Enter your message: "))
+    argument = receiver + " " + message
+    send_command("privmsg", argument)
+    
+    servers_response = get_servers_response()
+    if servers_response == "msgok"
+        print("Your message was sent!")
+    else:
+        print(server_response)
     
     
 available_actions = [
@@ -188,7 +214,7 @@ available_actions = [
         # Hint: ask the user to input the message from the keyboard
         # Hint: you can reuse the send_command() function to send the "msg" command
         # Hint: remember to read the server's response: whether the message was successfully sent or not
-        "function": None
+        "function": public_message
     },
     {
         "description": "Send a private message",
@@ -197,7 +223,7 @@ available_actions = [
         # Hint: ask the user to input the recipient and message from the keyboard
         # Hint: you can reuse the send_command() function to send the "privmsg" command
         # Hint: remember to read the server's response: whether the message was successfully sent or not
-        "function": None
+        "function": private_message
     },
     {
         "description": "Read messages in the inbox",
