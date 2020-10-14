@@ -105,12 +105,18 @@ def connect_to_server():
 
 
 def disconnect_from_server():
-    # TODO Step 2: Implement disconnect
-    # Hint: close the socket, handle exceptions, update current_state accordingly
-
     # Must have these two lines, otherwise the function will not "see" the global variables that we will change here
     global client_socket
     global current_state
+    
+    # TODO Step 2: Implement disconnect
+    # Hint: close the socket, handle exceptions, update current_state accordingly
+    try:
+        client_socket.close()
+        current_state = states[0]
+    except IOError as e:
+        print("An error occured:", e)
+        
     pass
 
 
