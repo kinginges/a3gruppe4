@@ -142,6 +142,19 @@ valid_states: a list specifying in which states this action is available
 function: a function to call when the user chooses this particular action. The functions must be defined before
             the definition of this variable
 """
+def authorisation():
+    global current_state
+    
+    username = str(input("Enter your username: "))
+    send_command("login", username)
+    
+    servers_response = get_servers_response()
+    if servers_response == "modeok"
+        print("You've succesfully logged in!")
+    else:
+        print(server_response)
+    
+    
 available_actions = [
     {
         "description": "Connect to a chat server",
@@ -156,6 +169,7 @@ available_actions = [
     {
         "description": "Authorize (log in)",
         "valid_states": ["connected", "authorized"],
+        "function": authorisation
         # TODO Step 5 - implement login
         # Hint: you will probably want to create a new function (call it login(), or authorize()) and
         # reference that function here.
@@ -166,7 +180,6 @@ available_actions = [
         # Hint: you probably want to change the state of the system: update value of current_state variable
         # Hint: remember to tell the function that you will want to use the global variable "current_state".
         # Hint: if the login was unsuccessful (loginerr returned), show the error message to the user
-        "function": None
     },
     {
         "description": "Send a public message",
