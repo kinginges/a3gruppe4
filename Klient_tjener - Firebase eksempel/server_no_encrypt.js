@@ -16,10 +16,10 @@ server.listen(serverPort, function(){ //Here we tell the server to start listeni
 });
 
 //We configure the firebase admin to connect to our database with admin credentials
-var serviceAccount = require("/yourfolder/your-database-firebase-adminsdk.json"); //This is our admin "password" file (it is a file and it is located in a folder)
+var serviceAccount = require("dataprosjektgruppe4-firebase-adminsdk-lkcl8-b17e339054.json"); //This is our admin "password" file (it is a file and it is located in a folder)
 var fAdmin = admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
-    databaseURL: "https://your-database.firebaseio.com" //This is the link to our database, this and the password file has to be specified by you
+    databaseURL: "https://dataprosjektgruppe4-default-rtdb.firebaseio.com/" //This is the link to our database, this and the password file has to be specified by you
 });
 
 //We use the firebase admin credentials to fetch the database object that lets us interact with our database specifically
