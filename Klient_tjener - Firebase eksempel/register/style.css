@@ -1,0 +1,189 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html,body {
+    width: 100%;
+    height: 100%;
+}
+
+#main-content {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    flex-flow: wrap;
+    background-color: rgba(240, 240, 240, 1.0);
+}
+
+/* Register */
+#register-card {
+    width: 42.5%;
+    height: 85%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(251, 251, 251, 1.0);
+    margin: 2% 0 0 0;
+    box-shadow: 0 1px 5px rgba(40, 40, 40, 0.1);
+    flex-flow: wrap;
+    font-family: Arial;
+}
+
+#register-top {
+    width: 90%;
+    height: 25%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    flex-flow: wrap;
+}
+
+#register-logo-con {
+    width: 100%;
+    height: 20%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+#logo-img {
+    width: 12.5%;
+    height: auto;
+    object-fit: cover;
+}
+
+#register-title-con {
+    width: 100%;
+    height: 70%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#title-text {
+    width: 90%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 36px;
+    color: black;
+}
+
+#register-btm {
+    width: 90%;
+    height: 65%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    flex-flow: wrap;
+    margin: -6% 0 0 0;
+}
+
+.register-input {
+    width: 65%;
+    height: 15%;
+    background-color: rgba(240, 240, 240, 1.0);
+    font-size: 30px;
+    color: black;
+    outline: none;
+    text-decoration: none;
+    box-shadow: none;
+    border: none;
+    text-align: center;
+    font-weight: 600;
+}
+
+#submit-btn {
+    width: 65%;
+    height: 15%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #0893B5;
+    color: white;
+    font-size: 22px;
+    font-weight: 800;
+}
+
+#submit-btn:hover {
+    cursor: pointer;
+}
+
+#creators {
+    width: 75%;
+    height: 10%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-flow: wrap;
+}
+
+#images-container {
+    width: 100%;
+    height: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-flow: nowrap;
+}
+
+#ntnu {
+    width: 25%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+#ntnu-img-blue {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    animation-name: change-imgs;
+    animation-timing-function: ease-in;
+    animation-iteration-count: infinite;
+    animation-duration: 1.5s;
+    animation-direction: alternate;
+    position: absolute;
+}
+
+#ntnu-img-black {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    position: absolute;
+}
+
+#webmaster {
+    width: 100%;
+    height: 20%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-flow: nowrap;
+    font-size: 14px;
+}
+
+@keyframes change-imgs {
+    0% {
+        opacity:1;
+    }
+    25% {
+        opacity:0.75;
+    }
+    50% {
+        opacity:0.5;
+    }
+
+    75% {
+        opacity: 0.25;
+    }
+    100% {
+        opacity:0;
+    }
+}

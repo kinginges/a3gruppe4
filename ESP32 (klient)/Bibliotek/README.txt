@@ -1,0 +1,2 @@
+Kopier begge disse mappene inn i bibliotekmappen til Arduino (Dokumenter/Arduino/libraries på windows). Etter det er det bare å bruke eksempelkoden.
+Hvis du har 1/begge fra før av kan du se bort i fra dette.
