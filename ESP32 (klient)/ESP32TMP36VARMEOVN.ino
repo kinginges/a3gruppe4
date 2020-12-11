@@ -100,13 +100,13 @@ void loop() {
   int avlesing_temp=analogRead(tmp36);
   float spenning=(avlesing_temp*3.3)/4095;
   float temp=86.64*spenning-48.68;
-  char str[10]; //nytt
-  str[0]=temp;
-  str[1]=100;
-  itoa(temp,str, 10); //nytt
+  //char str[10]; //nytt
+  String strdata = "";
+  strdata += "temp" + temp + " " + "light" + "20";
+  //itoa(temp,str, 10); //nytt
   
   if (time_now+10000<millis()){
-  webSocket.emit("dataFromBoard",a);
+  webSocket.emit("dataFromBoard",strdata);
   time_now=millis();}
   
   if (temp<23 && a==0){
