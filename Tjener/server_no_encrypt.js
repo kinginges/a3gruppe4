@@ -306,7 +306,38 @@ io.on('connection', function(socket) { //This is the server part of the "what ha
 
     });
 
-    socket.on('dataFromBoard', function(data /*, mcuID */) { //This is function that actually receives the data. The earlier one only starts the function.
+    socket.on('dataFromTmp', function(data /*, mcuID */) { //This is function that actually receives the data. The earlier one only starts the function.
+
+        //if(regUID != undefined && regUID != "" && regUID != 0) { //Check if the user is authenticated
+        //If you check too se if the user is authenticated here the microcontroller would also need to be authenticated
+
+            //io.emit('data', data); //Everytime a "dataFromBoard" tag (with data) is sent to the server, "data" tag with the actual data is sent to all clients
+            //The io will send it to call clients at the same time. Instead we can use Firebase to only send it to those who are listening. Scroll down for code
+
+            //This means the webbrowser will receive the data, and can then graph it or similar.
+            console.log('user ' + clientID + ' gained the data: ' + data);
+
+            var regDate = getDateAsString(); //Get the register date
+            var currentTime = getTimeAsString(); //Get the register time
+
+            //Everytime the mcu sends the server data it is stored in the database (this is permanent storing, the data is only deleted if you do it yourself)
+            db.ref('sensordata/'/* + regUID*/).push({ //One can store data in a subdirectory for the user in sensordata by removing the comment inside .ref
+              /* UID: regUID, If you choose to have data ownership stored per entry the microcontroller would have to be authenticated */
+                mcu_id: "esp32_1", //You could add an ekstra variable to every dataFromBoard transmission with a microcontrollerID to lessen the need for authentication
+                data: data, //This would be the sensor data, eg a temperature datapoint
+                logged_at: regDate + "-" + currentTime, //When is the data taken, both date and time
+                ip_address: IPArr[3] //What is the IP-address of the unit that logged the data
+            }).then((snap) => { //When the data has been successfully saved
+                console.log("Sensordata was saved");
+            });
+
+        /*} else {
+
+        }*/
+
+    });
+    
+        socket.on('dataFromLDR', function(data /*, mcuID */) { //This is function that actually receives the data. The earlier one only starts the function.
 
         //if(regUID != undefined && regUID != "" && regUID != 0) { //Check if the user is authenticated
         //If you check too se if the user is authenticated here the microcontroller would also need to be authenticated
