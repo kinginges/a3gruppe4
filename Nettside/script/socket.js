@@ -1,4 +1,4 @@
-var socket = io.connect('http://127.0.0.1:2520', {secure: false}); //This line declares a socket.io object to var "socket" and connects to the server (change the IP-address and port to your own)
+var socket = io.connect('http://84.38.153.29:2520', {secure: false}); //This line declares a socket.io object to var "socket" and connects to the server (change the IP-address and port to your own)
 //The "secure: false" tells if the connection will be encrypted or not. Since we will not encrypt our connections, this is false.
 
 //Socket.io has several functions. The .on function refers to what will happen when the client receive a call called 'connect' from the server
