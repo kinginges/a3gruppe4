@@ -2,17 +2,6 @@ var fs = require('fs');
 var http = require('http');
 var express = require('express');
 var app = express(); //These 4 first variables can be viewed as importing 3 libraries we need for the server and then declaring the objects we need to use them (just like Arduino)
-var cors = require('cors');
-
-app.use(cors());
-
-app.get('/products/:id', function (req, res, next) {
-  res.json({msg: 'This is CORS-enabled for all origins!'})
-})
- 
-app.listen(2520, function () {
-  console.log('CORS-enabled web server listening on port 80')
-})
 
 var admin = require("firebase-admin"); //We get the firebase admin library
 
