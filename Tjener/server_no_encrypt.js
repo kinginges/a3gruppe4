@@ -424,7 +424,7 @@ io.on('connection', function(socket) { //This is the server part of the "what ha
     }
     //This function starts the stream of data, everytime the dataFromBoard socket function saves data to the database it is detected here
     function startListeningForLDR() {
-        db.ref('TMPdata/' /* + regUID*/).limitToLast(1).on('child_added', sendLDRToClient); //Sets up a detection for new data
+        db.ref('LDRdata/' /* + regUID*/).limitToLast(1).on('child_added', sendLDRToClient); //Sets up a detection for new data
     }
     //Stop the datastream from the database to the socket client (normally webpage)
     function stopListeningForLDR() {
