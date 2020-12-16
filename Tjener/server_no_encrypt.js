@@ -218,57 +218,10 @@ io.on('connection', function(socket) { //This is the server part of the "what ha
 
     });
 
-    //Change states (general user defined functions)
-    socket.on('changeLEDState', function(state) { //This server function constantly checks if a client (webpage) calls its
-        //If the webpage calles it it will us the "io.emit" (to send to alle clients) and not "client.emit" to only send to one client
-        //In this way, when we send it to call clients, the ESP32 will get the message. It is an easy solution which can be made better
-
-        if(regUID != undefined && regUID != "" && regUID != 0) { //Check if the user is authenticated
-            io.emit('LEDStateChange', state); //This is the actual socket.io emit function
-            console.log('user ' + clientID + ' changed the LED state to: ' + state);
-        } else {
-            console.log("User is not authenticated");
-        }
-
-    });
-
-    socket.on('changeDriveState', function(state) { //Same logic as earlier
-
-        if(regUID != undefined && regUID != "" && regUID != 0) { //Check if the user is authenticated
-            io.emit('DriveStateChange', state);
-            console.log('user ' + clientID + ' changed the Drive state to: ' + state);
-        } else {
-            console.log("User is not authenticated");
-        }
-
-    });
-
-    socket.on('changeTurnState', function(state) {
-
-        if(regUID != undefined && regUID != "" && regUID != 0) { //Check if the user is authenticated
-            io.emit('TurnStateChange', state);
-            console.log('user ' + clientID + ' changed the Turn state to: ' + state);
-        } else {
-            console.log("User is not authenticated");
-        }
-
-    });
-
-    socket.on('changeStopState', function(state) {
-
-        if(regUID != undefined && regUID != "" && regUID != 0) { //Check if the user is authenticated
-            io.emit('stopDriving', state);
-            console.log('user ' + clientID + ' changed the Stop state to: ' + state);
-        } else {
-            console.log("User is not authenticated");
-        }
-
-    });
-
     var timers = []; //Stores all our timers
     //Read data from board section
 
-    socket.on('requestDataFromBoard', function(interval) { //This function i earlier described client-side on the webpage.
+    socket.on('requestDataFromBoard', function(interval, sensorname) { //This function i earlier described client-side on the webpage.
         //When the webpage calls it it will every time-interval send the "dataRequest" function to all connected clients.
         //When a ESP32 receives this command, it will reply with a data of a specific measurement eg. a temperature sensor.
         //This way, the timer is on the server/node.js and not on the ESP32/Arduino
@@ -279,7 +232,7 @@ io.on('connection', function(socket) { //This is the server part of the "what ha
             if (interval > 99) { //if the timeinterval is not more than 100ms it does not allow it to start
                 timers.push( //If an actual argument is given (a time period) it starts the timer and periodically calls the function
                     setInterval(function () { //If an actual argument is given (a time period) it starts the timer and periodically calls the function
-                        io.emit('dataRequest', 0); //Send "dataRequest" command/function to all ESP32's
+                        io.emit('dataRequest', sensorname); //Send "dataRequest" command/function to all ESP32's
                     }, interval)
                 );
             } else {
@@ -367,6 +320,43 @@ io.on('connection', function(socket) { //This is the server part of the "what ha
         }*/
 
     });
+    //Change states (general user defined functions)
+    socket.on('changeLEDState', function(state) { //This server function constantly checks if a client (webpage) calls its
+        //If the webpage calles it it will us the "io.emit" (to send to alle clients) and not "client.emit" to only send to one client
+        //In this way, when we send it to call clients, the ESP32 will get the message. It is an easy solution which can be made better
+
+        if(regUID != undefined && regUID != "" && regUID != 0) { //Check if the user is authenticated
+            io.emit('LEDStateChange', state); //This is the actual socket.io emit function
+            console.log('user ' + clientID + ' changed the LED state to: ' + state);
+        } else {
+            console.log("User is not authenticated");
+        }
+
+    });
+
+     //Change heatingstate
+    socket.on('changeHeatState', function(state)){
+        io.emit('HeatStateChange', state);
+        console.log('user' + clientID + 'changed the state of the heater to: ' + state)
+    }
+
+    socket.on('IsLedOkay',function(data)){ //Checks if last command to ESP was executed
+        if (data==0){
+            console.log('user ' + clientID + ' confirmed your last action on LED')
+        }
+        if (data !== 0){
+            console.log('user ' + clientID + ' did not execute last command on LED')
+        }
+    }
+
+    socket.on('IsHeatOkay',function(data)){ //Checks if last command to ESP was executed
+        if (data==0){
+            console.log('user ' + clientID + ' confirmed your last action on the heating')
+        }
+        if (data !== 0){
+            console.log('user ' + clientID + ' did not execute last command on the heating')
+        }
+    }
 
     //One can also write normal functions inside the io.on connection
     //This function sends new database data to the socket client (normally webpage) automatically

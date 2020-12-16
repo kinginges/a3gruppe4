@@ -24,14 +24,27 @@
                   to actually drag the object (the element you click on to begin dragging) you use the "dragBox" property here.
                   -->
                       <!-- Content of first box-->
-                    <div class="key-btn-top"> <!--Keyboard buttons on the top are placed in here-->
-                        <div class="key-btn" id="w">W</div> <!--W key-->
-                    </div>
-                    <div class="key-btn-btm"> <!--Keyboard buttons on the bottom are placed here-->
-                        <div class="key-btn" id="a">A</div> <!--A key-->
-                        <div class="key-btn" id="s">S</div> <!--S key-->
-                        <div class="key-btn" id="d">D</div> <!--D key-->
-                    </div>
+                        <!-- TODO: This is ugly, needs some CSS prettiness -->
+                    <form id="reg">
+                        <h3>Ny Bruker:</h3><br>
+                        <label for="regUname">Brukernavn:</label><br>
+                        <input type="text" name="regUname"><br><br>
+                        <label for="regPasswd">Passord:</label><br>
+                        <input type="password" name="regPasswd"><br><br>
+                        <label for="passwdConfirm">Bekreft passord:</label><br>
+                        <input type="password" name="passwdConfirm"><br><br>
+                        <label for="inputKey">Registreringsnøkkelen:</label><br>
+                        <input type="password" name="inputKey"><br><br>
+                        <input type="submit" value="Registrer" onclick="register()"><br>
+                    </form>
+                    <form id="login">
+                        <h3>Logg inn:</h3><br>
+                        <label for="uname">Brukernavn:</label><br>
+                        <input type="text" name="uname"><br><br>
+                        <label for="passwd">Passord</label><br>
+                        <input type="password" name="passwd"><br><br>
+                        <input type="submit" value="Logg inn" onclick="login"><br><br><br><br>
+                    </form>
                   </div>
 
               </div>
@@ -68,8 +81,19 @@
 
                   <!--This box is left to your imagination. Put what you want here or you can redesign the entire page an ditch this-->
 
-                  <!--Make a label thing here-->
-
+                  <div class="btn-container dragElement">
+                      <div class="btn-title-con dragBox"> <!--But one can only start to drag it if one clicks on the top-box where the title is -->
+                          <h2 class="btn-title">CONTROL BUTTONS</h2> <!--Title in the title-box-->
+                      </div>
+                      <div class="btn-box"> <!--Button container (left side of the container (split in middle) with a white background)-->
+                          <div class="btn" onclick="toggleLED()" style="background-color: #3020E4">TOGGLE LED</div>  <!--The actual button with a green background. When you click this a functions is called-->
+                          <!--requestDataFromBoard function starts data transfer from the ESP32 to the webpage-->
+                      </div>
+                      <div class="btn-box"><!--Button container (right side of the container (split in middle) with a white background)-->
+                          <div class="btn" onclick="toggleHEAT()" style="background-color: #E23636">TOGGLE HEAT</div> <!--The actual button with a red background. When you click this a functions is called-->
+                          <!--stopDataFromBoard function stops data transfer from the ESP32 to the webpage-->
+                      </div>
+                  </div>
               </div>
 
           </div>

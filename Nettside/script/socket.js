@@ -34,32 +34,45 @@ socket.on('data', function(data) { //Received data from the server who is forwar
 //In this function (which is essentially built up the same as a void function in Arduino) we want to send something to the server
 //For this we use the other important Socket.io function, .emit(arg). Here we are telling our socket object so call the "changeLEDState" function
 //on the server with the "state" argument. By calling the function on the server we mean that we send data to the server that tells it to do something
-function changeLEDState(state) {
+function toggleLED(state) {
     //This function controls wether a LED-light is on or of
     socket.emit('changeLEDState', state); //Here the actual socket-object function is called. If we want a response we will have to set up a function (.on) like earlier.
     console.log("changeLEDState called");
 
 }
-
-function changeDriveState(state) {
-
-    socket.emit('changeDriveState', state); //Same logic as earlier, this calls the change of motor direction
-    console.log("changeDriveState called");
-
-}
-
-function changeTurnState(state) {
-
-    socket.emit('changeTurnState', state);
-    console.log("changeTurnState called");
+function toggleHEAT(state) {
+    //This function controls wether a LED-light is on or of
+    socket.emit('changeHeatState', state); //Here the actual socket-object function is called. If we want a response we will have to set up a function (.on) like earlier.
+    console.log("changeHeatState called");
 
 }
+function register() {
+    console.log("Registrerer ny bruker");
+    var form = document.getElementById("reg");
+    if (form[1].value === form[2].value) {
+        socket.emit('regUser', form[3].value, form[0].value, form[1].value);
+        console.log("Registrerer: " + form[0].value);
 
-function changeStopState(state) {
+        socket.on('regSuccess', function(username)) {
+            alert("Registrering fullført!");
+        }
+        socket.on('regDenied') {
+            alert("Feil registreringsnøkkel");
+        }
+    } else {
+        alert("Passordene er ikke like!");
+    }
+}
+function login() {
+    var form = document.getElementById("login");
+    socket.emit('authUser', form[0].value, form[1].value);
 
-    socket.emit('changeStopState', state);
-    console.log("changeStopState called");
-
+    socket.on('authSuccess', function(username)) {
+        alert("Du er nå innlogget");
+    }
+    socket.on('authFail') {
+       alert("Feil passord!");
+    }
 }
 
 //This function also emits something to the server. But in this case we want something a little bit more complex to happen.
@@ -78,3 +91,9 @@ function stopDataFromBoard() { //Tells the server to stop all timers so that dat
     socket.emit('stopDataFromBoard'); //Here we tell the server to call the function "stopDataFromBoard"
     console.log("stopDataFromBoard was called");
 }
+
+// TODO:
+// 1. Need to fetch data from firebase
+// 2. Logging in must be a bit smoother
+// 3. Polish CSS
+// 4. Decide the fate of script.js
