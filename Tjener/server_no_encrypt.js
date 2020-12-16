@@ -218,6 +218,48 @@ io.on('connection', function(socket) { //This is the server part of the "what ha
 
     });
 
+<<<<<<< HEAD
+=======
+    //Change states (general user defined functions)
+    socket.on('changeLEDState', function(state) { //This server function constantly checks if a client (webpage) calls its
+        //If the webpage calles it it will us the "io.emit" (to send to alle clients) and not "client.emit" to only send to one client
+        //In this way, when we send it to call clients, the ESP32 will get the message. It is an easy solution which can be made better
+
+        if(regUID != undefined && regUID != "" && regUID != 0) { //Check if the user is authenticated
+            io.emit('LEDStateChange', state); //This is the actual socket.io emit function
+            console.log('user ' + clientID + ' changed the LED state to: ' + state);
+        } else {
+            console.log("User is not authenticated");
+        }
+
+    });
+
+     //Change heatingstate
+    socket.on('changeHeatState', function(state)){
+        io.emit('HeatStateChange', state);
+        console.log('user' + clientID + 'changed the state of the heater to: ' + state)
+    }
+      
+        socket.on('IsLedOkay',function(data)){ //Checks if last command to ESP was executed
+        if (data==0){
+            console.log('user ' + clientID + ' confirmed your last action on LED')
+        }
+        if (data !== 0){
+            console.log('user ' + clientID + ' did not execute last command on LED')
+        }
+    }
+
+    socket.on('IsHeatOkay',function(data)){ //Checks if last command to ESP was executed
+        if (data==0){
+            console.log('user ' + clientID + ' confirmed your last action on the heating')
+        }
+        if (data !== 0){
+            console.log('user ' + clientID + ' did not execute last command on the heating')
+        }
+    }
+
+
+>>>>>>> 5e7bae4c8bb978588400e83a76bbc27c630b39cd
     var timers = []; //Stores all our timers
     //Read data from board section
 
