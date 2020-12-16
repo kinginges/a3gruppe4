@@ -233,7 +233,7 @@ io.on('connection', function(socket) { //This is the server part of the "what ha
     });
 
      //Change heatingstate
-    socket.on('changeHeatState', function(state)){
+    socket.on('changeHeatState', function(state){
         io.emit('HeatStateChange', state);
         console.log('user' + clientID + 'changed the state of the heater to: ' + state)
     }
