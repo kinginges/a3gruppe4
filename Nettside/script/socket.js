@@ -53,12 +53,12 @@ function register() {
         socket.emit('regUser', form[3].value, form[0].value, form[1].value);
         console.log("Registrerer: " + form[0].value);
 
-        socket.on('regSuccess', function(username)) {
+        socket.on('regSuccess', function(username) {
             alert("Registrering fullført!");
-        }
-        socket.on('regDenied') {
+        });
+        socket.on('regDenied', function() {
             alert("Feil registreringsnøkkel");
-        }
+        });
     } else {
         alert("Passordene er ikke like!");
     }
@@ -67,12 +67,12 @@ function login() {
     var form = document.getElementById("login");
     socket.emit('authUser', form[0].value, form[1].value);
 
-    socket.on('authSuccess', function(username)) {
+    socket.on('authSuccess', function(username) {
         alert("Du er nå innlogget");
-    }
-    socket.on('authFail') {
+    });
+    socket.on('authFail', function() {
        alert("Feil passord!");
-    }
+    });
 }
 
 //This function also emits something to the server. But in this case we want something a little bit more complex to happen.
