@@ -321,7 +321,7 @@ io.on('connection', function(socket) { //This is the server part of the "what ha
             var currentTime = getTimeAsString(); //Get the register time
 
             //Everytime the mcu sends the server data it is stored in the database (this is permanent storing, the data is only deleted if you do it yourself)
-            db.ref('sensordata/'/* + regUID*/).push({ //One can store data in a subdirectory for the user in sensordata by removing the comment inside .ref
+            db.ref('TMPdata/'/* + regUID*/).push({ //One can store data in a subdirectory for the user in sensordata by removing the comment inside .ref
               /* UID: regUID, If you choose to have data ownership stored per entry the microcontroller would have to be authenticated */
                 mcu_id: "esp32_1", //You could add an ekstra variable to every dataFromBoard transmission with a microcontrollerID to lessen the need for authentication
                 data: data, //This would be the sensor data, eg a temperature datapoint
@@ -352,7 +352,7 @@ io.on('connection', function(socket) { //This is the server part of the "what ha
             var currentTime = getTimeAsString(); //Get the register time
 
             //Everytime the mcu sends the server data it is stored in the database (this is permanent storing, the data is only deleted if you do it yourself)
-            db.ref('sensordata/'/* + regUID*/).push({ //One can store data in a subdirectory for the user in sensordata by removing the comment inside .ref
+            db.ref('LDRdata/'/* + regUID*/).push({ //One can store data in a subdirectory for the user in sensordata by removing the comment inside .ref
               /* UID: regUID, If you choose to have data ownership stored per entry the microcontroller would have to be authenticated */
                 mcu_id: "esp32_1", //You could add an ekstra variable to every dataFromBoard transmission with a microcontrollerID to lessen the need for authentication
                 data: data, //This would be the sensor data, eg a temperature datapoint
