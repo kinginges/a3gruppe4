@@ -13,9 +13,9 @@ socket.on('clientConnected',function(id, ip) { //This is our selfmade functions.
 
 });
 
-socket.on('data', function(data) { //Received data from the server who is forwarding it to us from the ESP32
+socket.on('TMPtoClient', function(data) { //Received data from the server who is forwarding it to us from the ESP32
 
-    console.log('Data was received: ' + data);
+    console.log('Temperature was received: ' + data);
     console.log(Number(data));
 
     if (dataArr1.length > 10) {
@@ -27,6 +27,24 @@ socket.on('data', function(data) { //Received data from the server who is forwar
         dataArr1.push(data); //This pushes data to the array that stores all the chart data
     }
     
+    myLineChart.update(); //This updates the chart
+
+});
+
+socket.on('LDRtoClient', function(data) { //Received data from the server who is forwarding it to us from the ESP32
+
+    console.log('Light level was received: ' + data);
+    console.log(Number(data));
+
+    if (dataArr2.length > 10) {
+
+        dataArr2.shift(); //This removes the first element of the array
+        dataArr2.push(data) //This pushes data to the array that stores all the chart data
+
+    } else {
+        dataArr2.push(data); //This pushes data to the array that stores all the chart data
+    }
+
     myLineChart.update(); //This updates the chart
 
 });
@@ -64,8 +82,10 @@ function register() {
     }
 }
 function login() {
-    var form = document.getElementById("login");
-    socket.emit('authUser', form[0].value, form[1].value);
+    var formUname = document.getElementById("loginUname").value;
+    var formPasswd = document.getElementById("loginPasswd").value;
+    console.log(formUname);
+    socket.emit('authUser', formUname, formPasswd);
 
     socket.on('authSuccess', function(username) {
         alert("Du er nå innlogget");

@@ -23,28 +23,10 @@
                   To define the element that can be draged you use the "dragElement" property here, to define what element that can be used
                   to actually drag the object (the element you click on to begin dragging) you use the "dragBox" property here.
                   -->
-                      <!-- Content of first box-->
-                        <!-- TODO: This is ugly, needs some CSS prettiness -->
-                    <form id="reg">
-                        <h3>Ny Bruker:</h3><br>
-                        <label for="regUname">Brukernavn:</label><br>
-                        <input type="text" name="regUname"><br><br>
-                        <label for="regPasswd">Passord:</label><br>
-                        <input type="password" name="regPasswd"><br><br>
-                        <label for="passwdConfirm">Bekreft passord:</label><br>
-                        <input type="password" name="passwdConfirm"><br><br>
-                        <label for="inputKey">Registreringsnøkkelen:</label><br>
-                        <input type="password" name="inputKey"><br><br>
-                        <input type="submit" value="Registrer" onclick="register()"><br>
-                    </form>
-                    <form id="login">
-                        <h3>Logg inn:</h3><br>
-                        <label for="uname">Brukernavn:</label><br>
-                        <input type="text" name="uname"><br><br>
-                        <label for="passwd">Passord</label><br>
-                        <input type="password" name="passwd"><br><br>
-                        <input type="submit" value="Logg inn" onclick="login"><br><br><br><br>
-                    </form>
+                      <input type="text" id="loginUname"><br>
+                      <input type="password" id="loginPasswd"><br>
+                      <div onclick="login()">Logg inn</div>
+
                   </div>
 
               </div>
@@ -86,11 +68,19 @@
                           <h2 class="btn-title">CONTROL BUTTONS</h2> <!--Title in the title-box-->
                       </div>
                       <div class="btn-box"> <!--Button container (left side of the container (split in middle) with a white background)-->
-                          <div class="btn" onclick="toggleLED()" style="background-color: #3020E4">TOGGLE LED</div>  <!--The actual button with a green background. When you click this a functions is called-->
+                          <div class="btn" onclick="toggleLED(1)" style="background-color: #3020E4">TURN ON LED</div>  <!--The actual button with a green background. When you click this a functions is called-->
                           <!--requestDataFromBoard function starts data transfer from the ESP32 to the webpage-->
                       </div>
                       <div class="btn-box"><!--Button container (right side of the container (split in middle) with a white background)-->
-                          <div class="btn" onclick="toggleHEAT()" style="background-color: #E23636">TOGGLE HEAT</div> <!--The actual button with a red background. When you click this a functions is called-->
+                          <div class="btn" onclick="toggleHEAT(1)" style="background-color: #E23636">TURN ON HEAT</div> <!--The actual button with a red background. When you click this a functions is called-->
+                          <!--stopDataFromBoard function stops data transfer from the ESP32 to the webpage-->
+                      </div><br>
+                      <div class="btn-box"> <!--Button container (left side of the container (split in middle) with a white background)-->
+                          <div class="btn" onclick="toggleLED(0)" style="background-color: #3020E4">TURN OFF LED</div>  <!--The actual button with a green background. When you click this a functions is called-->
+                          <!--requestDataFromBoard function starts data transfer from the ESP32 to the webpage-->
+                      </div>
+                      <div class="btn-box"><!--Button container (right side of the container (split in middle) with a white background)-->
+                          <div class="btn" onclick="toggleHEAT(0)" style="background-color: #E23636">TURN OFF HEAT</div> <!--The actual button with a red background. When you click this a functions is called-->
                           <!--stopDataFromBoard function stops data transfer from the ESP32 to the webpage-->
                       </div>
                   </div>

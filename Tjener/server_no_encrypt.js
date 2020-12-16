@@ -111,7 +111,8 @@ io.on('connection', function(socket) { //This is the server part of the "what ha
         //When the user disconnects we want to log and store this in the database
         if(regUID != undefined && regUID != "" && regUID != 0) { //This checks that the user is logged in via the regUID
 
-            stopListeningForData(); //Stop client data stream, new database entries will not be sent to the socket client
+            stopListeningForTMP(); //Stop client data stream, new database entries will not be sent to the socket client
+            stopListeningForLDR(); //Stop client data stream, new database entries will not be sent to the socket client
 
             var currentDate = getDateAsString(); //Get the date
             var currentTime = getTimeAsString(); //Get the time
@@ -188,7 +189,8 @@ io.on('connection', function(socket) { //This is the server part of the "what ha
                     console.log(regUID);
                     client.emit("authSuccess", username); //Now we tell the client that it has successfully authenticated with the server
 
-                    startListeningForData(); //Start client data stream, everytime the database gets a new entry the socket client will be sent the data
+                    startListeningForTMP(); //Start client data stream, everytime the database gets a new entry the socket client will be sent the data
+                    startListeningForLDR(); //Start client data stream, everytime the database gets a new entry the socket client will be sent the data
 
                     if(regUID != undefined && regUID != "" && regUID != 0) { //We use the same check as in disconnected to see if the user is registered on the Node/Socket server
                         var currentDate = getDateAsString(); //Get date
@@ -395,21 +397,38 @@ io.on('connection', function(socket) { //This is the server part of the "what ha
     });
     //One can also write normal functions inside the io.on connection
     //This function sends new database data to the socket client (normally webpage) automatically
-    function sendDataToClient(snap) {
+    function sendTMPToClient(snap) {
         var value = snap.val(); //Data object from Firebase
 
         var DataID = Object.keys(value)[0]; //Here we use a function that retrieves all the data keys (the ID of the data entry)
         var data = value[DataID]; //Then we use the ID to retrieve the data from the JSON-array
-        console.log("Data: " + data);
-        client.emit('data', data); //We emit to the same listener on the webpage as in the earlier io.emit command ('data') in the dataFromBoard function
+        console.log("Temperature: " + data);
+        client.emit('TMPtoClient', data); //We emit to the same listener on the webpage as in the earlier io.emit command ('data') in the dataFromBoard function
     }
     //This function starts the stream of data, everytime the dataFromBoard socket function saves data to the database it is detected here
-    function startListeningForData() {
-        db.ref('sensordata/' /* + regUID*/).limitToLast(1).on('child_added', sendDataToClient); //Sets up a detection for new data
+    function startListeningForTMP() {
+        db.ref('TMPdata/' /* + regUID*/).limitToLast(1).on('child_added', sendTMPToClient); //Sets up a detection for new data
     }
     //Stop the datastream from the database to the socket client (normally webpage)
-    function stopListeningForData() {
-        db.ref('sensordata/' /* + regUID*/).off('child_added', sendDataToClient); //Stops detection for new data
+    function stopListeningForTMP() {
+        db.ref('TMPdata/' /* + regUID*/).off('child_added', sendTMPToClient); //Stops detection for new data
+    }
+
+    function sendLDRToClient(snap) {
+        var value = snap.val(); //Data object from Firebase
+
+        var DataID = Object.keys(value)[0]; //Here we use a function that retrieves all the data keys (the ID of the data entry)
+        var data = value[DataID]; //Then we use the ID to retrieve the data from the JSON-array
+        console.log("Light level at: " + data);
+        client.emit('LDRtoClient', data); //We emit to the same listener on the webpage as in the earlier io.emit command ('data') in the dataFromBoard function
+    }
+    //This function starts the stream of data, everytime the dataFromBoard socket function saves data to the database it is detected here
+    function startListeningForLDR() {
+        db.ref('TMPdata/' /* + regUID*/).limitToLast(1).on('child_added', sendLDRToClient); //Sets up a detection for new data
+    }
+    //Stop the datastream from the database to the socket client (normally webpage)
+    function stopListeningForLDR() {
+        db.ref('LDRdata/' /* + regUID*/).off('child_added', sendLDRToClient); //Stops detection for new data
     }
 
 });
