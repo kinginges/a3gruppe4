@@ -7,8 +7,8 @@
     <script src="libraries/socket.io.js"></script><!--Load Socket.io library-->
     <script src="libraries/Chart.min.js"></script> <!--Load Chart.js library-->
     <script>
-        var dataArr1 = [5, 10, 20, 50]; /* The chart data for "Data 1", altering this array/list changes the graph data */
-        var dataArr2 = [2, 100, 50, 130, 20, 10, 50, 420, 50, 10]; /* The chart data for "Data 2", altering this array/list changes the graph data */
+        var dataArr1 = []; /* The chart data for "Data 1", altering this array/list changes the graph data */
+        var dataArr2 = []; /* The chart data for "Data 2", altering this array/list changes the graph data */
     </script>
 </head> <!-- the "/" indicates that the element is closed/stopped (you are done defining it)-->
 <body> <!--Defines the body element. This is traditionally where the main content is placed. Its the "middle" of the webpage-->
@@ -22,34 +22,49 @@
                   <div class="key-container dragElement dragBox"> <!--The "dragElement" and "dragBox" makes the element "dragable"
                   To define the element that can be draged you use the "dragElement" property here, to define what element that can be used
                   to actually drag the object (the element you click on to begin dragging) you use the "dragBox" property here.
-                  -->
-                      <input type="text" id="loginUname"><br>
-                      <input type="password" id="loginPasswd"><br>
-                      <div onclick="login()">Logg inn</div>
-
+                                                                 -->
+                      <div>
+                          <h3>Ny bruker</h3><br>
+                          <p>Brukernavn:</p>
+                          <input type="text" id="regUname"><br><br>
+                          <p>Passord:</p>
+                          <input type="password" id="regPasswd"><br><br>
+                          <p>Bekreft passord:</p>
+                          <input type="password" id="regPasswdConfirm"><br><br>
+                          <p>Registreringsnøkkel:</p>
+                          <input type="password" id="regKey"><br><br>
+                          <div onclick="register()">Registrer</div>
+                      </div>
+                      <div>
+                          <h3>Logg inn</h3><br>
+                          <p>Brukernavn:</p>
+                          <input type="text" id="loginUname"><br><br>
+                          <p>Passord:</p>
+                          <input type="password" id="loginPasswd"><br><br>
+                          <div onclick="login()">Logg inn</div>
+                      </div>
                   </div>
 
               </div>
+              <div class="control-module" id="control-module-2"> <!--This defines the fourth box with nothing currently in it (lower right)-->
 
-              <div class="control-module" id="control-module-2"> <!--This defines the second box with the buttons in it (upper right)-->
+                  <!--This box is left to your imagination. Put what you want here or you can redesign the entire page an ditch this-->
 
-                    <!-- Content of second box-->
-                  <div class="btn-container dragElement"> <!--Here the dragElement is the entire box-->
+                  <div class="btn-container dragElement">
                       <div class="btn-title-con dragBox"> <!--But one can only start to drag it if one clicks on the top-box where the title is -->
-                          <h2 class="btn-title">GET DATA BUTTONS</h2> <!--Title in the title-box-->
+                          <h2 class="btn-title">CONTROL LED</h2> <!--Title in the title-box-->
                       </div>
                       <div class="btn-box"> <!--Button container (left side of the container (split in middle) with a white background)-->
-                          <div class="btn" onclick="requestDataFromBoard(1000)">GET DATA</div>  <!--The actual button with a green background. When you click this a functions is called-->
+                          <div class="btn" onclick="toggleLED(1)" style="background-color: #3020E4">TURN ON LED</div>  <!--The actual button with a green background. When you click this a functions is called-->
                           <!--requestDataFromBoard function starts data transfer from the ESP32 to the webpage-->
                       </div>
-                      <div class="btn-box"><!--Button container (right side of the container (split in middle) with a white background)-->
-                          <div class="btn" onclick="stopDataFromBoard()" style="background-color: #E23636">STOP DATA</div> <!--The actual button with a red background. When you click this a functions is called-->
-                          <!--stopDataFromBoard function stops data transfer from the ESP32 to the webpage-->
+                      <div class="btn-box"> <!--Button container (left side of the container (split in middle) with a white background)-->
+                          <div class="btn" onclick="toggleLED(0)" style="background-color: #3020E4">TURN OFF LED</div>  <!--The actual button with a green background. When you click this a functions is called-->
+                          <!--requestDataFromBoard function starts data transfer from the ESP32 to the webpage-->
                       </div>
+
                   </div>
-
               </div>
-
               <div class="control-module" id="control-module-3"> <!--This defines the third box with the graph in it (lower left)-->
 
                   <!-- Content of third box-->
@@ -65,19 +80,11 @@
 
                   <div class="btn-container dragElement">
                       <div class="btn-title-con dragBox"> <!--But one can only start to drag it if one clicks on the top-box where the title is -->
-                          <h2 class="btn-title">CONTROL BUTTONS</h2> <!--Title in the title-box-->
-                      </div>
-                      <div class="btn-box"> <!--Button container (left side of the container (split in middle) with a white background)-->
-                          <div class="btn" onclick="toggleLED(1)" style="background-color: #3020E4">TURN ON LED</div>  <!--The actual button with a green background. When you click this a functions is called-->
-                          <!--requestDataFromBoard function starts data transfer from the ESP32 to the webpage-->
+                          <h2 class="btn-title">CONTROL HEAT</h2> <!--Title in the title-box-->
                       </div>
                       <div class="btn-box"><!--Button container (right side of the container (split in middle) with a white background)-->
                           <div class="btn" onclick="toggleHEAT(1)" style="background-color: #E23636">TURN ON HEAT</div> <!--The actual button with a red background. When you click this a functions is called-->
                           <!--stopDataFromBoard function stops data transfer from the ESP32 to the webpage-->
-                      </div><br>
-                      <div class="btn-box"> <!--Button container (left side of the container (split in middle) with a white background)-->
-                          <div class="btn" onclick="toggleLED(0)" style="background-color: #3020E4">TURN OFF LED</div>  <!--The actual button with a green background. When you click this a functions is called-->
-                          <!--requestDataFromBoard function starts data transfer from the ESP32 to the webpage-->
                       </div>
                       <div class="btn-box"><!--Button container (right side of the container (split in middle) with a white background)-->
                           <div class="btn" onclick="toggleHEAT(0)" style="background-color: #E23636">TURN OFF HEAT</div> <!--The actual button with a red background. When you click this a functions is called-->

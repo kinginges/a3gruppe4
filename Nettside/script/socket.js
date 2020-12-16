@@ -1,4 +1,5 @@
 var socket = io.connect('http://84.38.153.29:2520', {secure: false}); //This line declares a socket.io object to var "socket" and connects to the server (change the IP-address and port to your own)
+//var socket = io.connect('http://192.168.0.102:2520', {secure: false}); //This line declares a socket.io object to var "socket" and connects to the server (change the IP-address and port to your own)
 //The "secure: false" tells if the connection will be encrypted or not. Since we will not encrypt our connections, this is false.
 
 //Socket.io has several functions. The .on function refers to what will happen when the client receive a call called 'connect' from the server
@@ -66,10 +67,14 @@ function toggleHEAT(state) {
 }
 function register() {
     console.log("Registrerer ny bruker");
-    var form = document.getElementById("reg");
-    if (form[1].value === form[2].value) {
-        socket.emit('regUser', form[3].value, form[0].value, form[1].value);
-        console.log("Registrerer: " + form[0].value);
+    var formUname = document.getElementById("regUname").value;
+    var formPasswd = document.getElementById("regPasswd").value;
+    var formPasswdConfirm = document.getElementById("regPasswdConfirm").value;
+    var formKey = document.getElementById("regKey").value;
+
+    if (formPasswd === formPasswdConfirm) {
+        socket.emit('regUser', formKey, formUname, formPasswd);
+        console.log("Registrerer: " + formUname);
 
         socket.on('regSuccess', function(username) {
             alert("Registrering fullført!");

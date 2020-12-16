@@ -6,7 +6,7 @@ var myLineChart = new Chart(ctx, { //Defines the graph
         labels: ['01:00', '02:00', '03:00', '04:00', '05:00', '06:00', '07:00', '08:00', '08:00', '09:00'], //Labels define the values of the x-axis (and can be altered at a later point/live)
         datasets: [ //Datasets refers to the different graphs and the data they contain
             {
-                label: 'Data 1', //Label of dataset/graph 1
+                label: 'Temperatur', //Label of dataset/graph 1
                 data: dataArr1, //The dataArray that actually stores the data
                 backgroundColor: [ //The background color of the graph (usually not in use)
                     'rgba(255, 99, 132, 0.2)'
@@ -18,7 +18,7 @@ var myLineChart = new Chart(ctx, { //Defines the graph
                 fill: false
             },
             {
-                label: 'Data 2',
+                label: 'Lysstyrke',
                 data: dataArr2,
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)'
