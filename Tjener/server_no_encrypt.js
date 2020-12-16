@@ -218,8 +218,6 @@ io.on('connection', function(socket) { //This is the server part of the "what ha
 
     });
 
-<<<<<<< HEAD
-=======
     //Change states (general user defined functions)
     socket.on('changeLEDState', function(state) { //This server function constantly checks if a client (webpage) calls its
         //If the webpage calles it it will us the "io.emit" (to send to alle clients) and not "client.emit" to only send to one client
@@ -259,7 +257,6 @@ io.on('connection', function(socket) { //This is the server part of the "what ha
     }
 
 
->>>>>>> 5e7bae4c8bb978588400e83a76bbc27c630b39cd
     var timers = []; //Stores all our timers
     //Read data from board section
 
