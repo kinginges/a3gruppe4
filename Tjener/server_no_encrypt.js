@@ -239,7 +239,7 @@ io.on('connection', function(socket) { //This is the server part of the "what ha
         io.emit('HeatStateChange', state);
         console.log('user' + clientID + 'changed the state of the heater to: ' + state)
     }
-      
+
         socket.on('IsLedOkay',function(data)){ //Checks if last command to ESP was executed
         if (data==0){
             console.log('user ' + clientID + ' confirmed your last action on LED')
@@ -327,11 +327,10 @@ io.on('connection', function(socket) { //This is the server part of the "what ha
             });
 
         /*} else {
-
         }*/
 
     });
-    
+
         socket.on('dataFromLDR', function(data /*, mcuID */) { //This is function that actually receives the data. The earlier one only starts the function.
 
         //if(regUID != undefined && regUID != "" && regUID != 0) { //Check if the user is authenticated
@@ -358,7 +357,6 @@ io.on('connection', function(socket) { //This is the server part of the "what ha
             });
 
         /*} else {
-
         }*/
 
     });
@@ -375,7 +373,6 @@ io.on('connection', function(socket) { //This is the server part of the "what ha
         }
 
     });
-
      //Change heatingstate
     socket.on('changeHeatState', function(state)){
         io.emit('HeatStateChange', state);
@@ -399,7 +396,6 @@ io.on('connection', function(socket) { //This is the server part of the "what ha
             console.log('user ' + clientID + ' did not execute last command on the heating')
         }
     }
-
     //One can also write normal functions inside the io.on connection
     //This function sends new database data to the socket client (normally webpage) automatically
     function sendDataToClient(snap) {
@@ -410,12 +406,10 @@ io.on('connection', function(socket) { //This is the server part of the "what ha
         console.log("Data: " + data);
         client.emit('data', data); //We emit to the same listener on the webpage as in the earlier io.emit command ('data') in the dataFromBoard function
     }
-
     //This function starts the stream of data, everytime the dataFromBoard socket function saves data to the database it is detected here
     function startListeningForData() {
         db.ref('sensordata/' /* + regUID*/).limitToLast(1).on('child_added', sendDataToClient); //Sets up a detection for new data
     }
-
     //Stop the datastream from the database to the socket client (normally webpage)
     function stopListeningForData() {
         db.ref('sensordata/' /* + regUID*/).off('child_added', sendDataToClient); //Stops detection for new data
