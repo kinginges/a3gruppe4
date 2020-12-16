@@ -78,12 +78,19 @@ function register() {
 
         socket.on('regSuccess', function(username) {
             alert("Registrering fullført!");
+            document.getElementById("regUname").value = "";
+            document.getElementById("regPasswd").value = "";
+            document.getElementById("regPasswdConfirm").value = "";
+            document.getElementById("regKey").value = "";
         });
         socket.on('regDenied', function() {
             alert("Feil registreringsnøkkel");
+            document.getElementById("regKey").value = "";
         });
     } else {
         alert("Passordene er ikke like!");
+        document.getElementById("regPasswd").value = "";
+        document.getElementById("regPasswdConfirm").value = "";
     }
 }
 function login() {
@@ -94,9 +101,12 @@ function login() {
 
     socket.on('authSuccess', function(username) {
         alert("Du er nå innlogget");
+        document.getElementById("loginUname").value = "";
+        document.getElementById("loginPasswd").value = "";
     });
     socket.on('authFail', function() {
-       alert("Feil passord!");
+        alert("Feil passord!");
+        document.getElementById("loginPasswd").value = "";
     });
 }
 
@@ -118,7 +128,6 @@ function stopDataFromBoard() { //Tells the server to stop all timers so that dat
 }
 
 // TODO:
-// 1. Need to fetch data from firebase
 // 2. Logging in must be a bit smoother
 // 3. Polish CSS
 // 4. Decide the fate of script.js

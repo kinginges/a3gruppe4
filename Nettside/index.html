@@ -52,14 +52,14 @@
 
                   <div class="btn-container dragElement">
                       <div class="btn-title-con dragBox"> <!--But one can only start to drag it if one clicks on the top-box where the title is -->
-                          <h2 class="btn-title">CONTROL LED</h2> <!--Title in the title-box-->
+                          <h2 class="btn-title">KONTROLLER LED</h2> <!--Title in the title-box-->
                       </div>
                       <div class="btn-box"> <!--Button container (left side of the container (split in middle) with a white background)-->
-                          <div class="btn" onclick="toggleLED(1)" style="background-color: #3020E4">TURN ON LED</div>  <!--The actual button with a green background. When you click this a functions is called-->
+                          <div class="btn" onclick="toggleLED(1)" style="background-color: #3020E4">SKRU PÅ LED</div>
                           <!--requestDataFromBoard function starts data transfer from the ESP32 to the webpage-->
                       </div>
                       <div class="btn-box"> <!--Button container (left side of the container (split in middle) with a white background)-->
-                          <div class="btn" onclick="toggleLED(0)" style="background-color: #3020E4">TURN OFF LED</div>  <!--The actual button with a green background. When you click this a functions is called-->
+                          <div class="btn" onclick="toggleLED(0)" style="background-color: #3020E4">SKRU AV LED</div>  <!--The actual button with a green background. When you click this a functions is called-->
                           <!--requestDataFromBoard function starts data transfer from the ESP32 to the webpage-->
                       </div>
 
@@ -76,18 +76,16 @@
 
               <div class="control-module" id="control-module-4"> <!--This defines the fourth box with nothing currently in it (lower right)-->
 
-                  <!--This box is left to your imagination. Put what you want here or you can redesign the entire page an ditch this-->
-
                   <div class="btn-container dragElement">
                       <div class="btn-title-con dragBox"> <!--But one can only start to drag it if one clicks on the top-box where the title is -->
-                          <h2 class="btn-title">CONTROL HEAT</h2> <!--Title in the title-box-->
+                          <h2 class="btn-title">KONTROLLER OVN</h2> <!--Title in the title-box-->
                       </div>
                       <div class="btn-box"><!--Button container (right side of the container (split in middle) with a white background)-->
-                          <div class="btn" onclick="toggleHEAT(1)" style="background-color: #E23636">TURN ON HEAT</div> <!--The actual button with a red background. When you click this a functions is called-->
+                          <div class="btn" onclick="toggleHEAT(1)" style="background-color: #E23636">SKRU PÅ OVN</div> <!--The actual button with a red background. When you click this a functions is called-->
                           <!--stopDataFromBoard function stops data transfer from the ESP32 to the webpage-->
                       </div>
                       <div class="btn-box"><!--Button container (right side of the container (split in middle) with a white background)-->
-                          <div class="btn" onclick="toggleHEAT(0)" style="background-color: #E23636">TURN OFF HEAT</div> <!--The actual button with a red background. When you click this a functions is called-->
+                          <div class="btn" onclick="toggleHEAT(0)" style="background-color: #E23636">SKRU AV OVN</div> <!--The actual button with a red background. When you click this a functions is called-->
                           <!--stopDataFromBoard function stops data transfer from the ESP32 to the webpage-->
                       </div>
                   </div>
