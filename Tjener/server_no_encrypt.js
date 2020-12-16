@@ -232,38 +232,30 @@ io.on('connection', function(socket) { //This is the server part of the "what ha
 
     });
 
-    socket.on('changeDriveState', function(state) { //Same logic as earlier
-
-        if(regUID != undefined && regUID != "" && regUID != 0) { //Check if the user is authenticated
-            io.emit('DriveStateChange', state);
-            console.log('user ' + clientID + ' changed the Drive state to: ' + state);
-        } else {
-            console.log("User is not authenticated");
+     //Change heatingstate
+    socket.on('changeHeatState', function(state)){
+        io.emit('HeatStateChange', state);
+        console.log('user' + clientID + 'changed the state of the heater to: ' + state)
+    }
+      
+        socket.on('IsLedOkay',function(data)){ //Checks if last command to ESP was executed
+        if (data==0){
+            console.log('user ' + clientID + ' confirmed your last action on LED')
         }
-
-    });
-
-    socket.on('changeTurnState', function(state) {
-
-        if(regUID != undefined && regUID != "" && regUID != 0) { //Check if the user is authenticated
-            io.emit('TurnStateChange', state);
-            console.log('user ' + clientID + ' changed the Turn state to: ' + state);
-        } else {
-            console.log("User is not authenticated");
+        if (data !== 0){
+            console.log('user ' + clientID + ' did not execute last command on LED')
         }
+    }
 
-    });
-
-    socket.on('changeStopState', function(state) {
-
-        if(regUID != undefined && regUID != "" && regUID != 0) { //Check if the user is authenticated
-            io.emit('stopDriving', state);
-            console.log('user ' + clientID + ' changed the Stop state to: ' + state);
-        } else {
-            console.log("User is not authenticated");
+    socket.on('IsHeatOkay',function(data)){ //Checks if last command to ESP was executed
+        if (data==0){
+            console.log('user ' + clientID + ' confirmed your last action on the heating')
         }
+        if (data !== 0){
+            console.log('user ' + clientID + ' did not execute last command on the heating')
+        }
+    }
 
-    });
 
     var timers = []; //Stores all our timers
     //Read data from board section
