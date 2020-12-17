@@ -65,48 +65,48 @@ function toggleHEAT(state) {
     console.log("changeHeatState called");
 
 }
-function register() {
+function register() {                                                           // This is the function to register a new user
     console.log("Registrerer ny bruker");
-    var formUname = document.getElementById("regUname").value;
-    var formPasswd = document.getElementById("regPasswd").value;
-    var formPasswdConfirm = document.getElementById("regPasswdConfirm").value;
-    var formKey = document.getElementById("regKey").value;
+    var formUname = document.getElementById("regUname").value;                  // Fetches the username from the input-field
+    var formPasswd = document.getElementById("regPasswd").value;                // Fetches the password from the input-field
+    var formPasswdConfirm = document.getElementById("regPasswdConfirm").value;  // Fetches the "confirm password" from the input-field
+    var formKey = document.getElementById("regKey").value;                      // Fetches the key from the input-field
 
-    if (formPasswd === formPasswdConfirm) {
-        socket.emit('regUser', formKey, formUname, formPasswd);
-        console.log("Registrerer: " + formUname);
+    if (formPasswd === formPasswdConfirm) {                                     // Controls that the user confirmed the password correctly
+        socket.emit('regUser', formKey, formUname, formPasswd);                 // If the password is confirmed correctly then it sends all the information to the server.
+        console.log("Registrerer: " + formUname);                               // Logs the username to the console
 
-        socket.on('regSuccess', function(username) {
-            alert("Registrering fullført!");
-            document.getElementById("regUname").value = "";
-            document.getElementById("regPasswd").value = "";
-            document.getElementById("regPasswdConfirm").value = "";
-            document.getElementById("regKey").value = "";
+        socket.on('regSuccess', function(username) {                            // Listens for success from the server.
+            alert("Registrering fullført!");                                    // If the server emits on regSuccess then the registratioin is succeeded and an alert notify the user
+            document.getElementById("regUname").value = "";                     // Clears the username-field
+            document.getElementById("regPasswd").value = "";                    // Clears the password-field
+            document.getElementById("regPasswdConfirm").value = "";             // Clears the "confirm password"-field
+            document.getElementById("regKey").value = "";                       // Clears the key-field
         });
-        socket.on('regDenied', function() {
-            alert("Feil registreringsnøkkel");
-            document.getElementById("regKey").value = "";
+        socket.on('regDenied', function() {                                     // Listens for denial from the server
+            alert("Feil registreringsnøkkel");                                  // If the server denies then it is assumed that it is because the regkey was wrong and an alert notifies the user
+            document.getElementById("regKey").value = "";                       // Clears the key-field
         });
     } else {
-        alert("Passordene er ikke like!");
-        document.getElementById("regPasswd").value = "";
-        document.getElementById("regPasswdConfirm").value = "";
+        alert("Passordene er ikke like!");                                      // If the password don't match then an alert notifies the user
+        document.getElementById("regPasswd").value = "";                        // Clears the password-field
+        document.getElementById("regPasswdConfirm").value = "";                 // Clears the "confirm password"-field
     }
 }
-function login() {
-    var formUname = document.getElementById("loginUname").value;
-    var formPasswd = document.getElementById("loginPasswd").value;
+function login() {                                                              // This is the function to login a user
+    var formUname = document.getElementById("loginUname").value;                // Fetches the username from the input-field
+    var formPasswd = document.getElementById("loginPasswd").value;              // Fetches the password from the input-field
     console.log(formUname);
-    socket.emit('authUser', formUname, formPasswd);
+    socket.emit('authUser', formUname, formPasswd);                             // Emits the login-information to the server
 
-    socket.on('authSuccess', function(username) {
-        alert("Du er nå innlogget");
-        document.getElementById("loginUname").value = "";
-        document.getElementById("loginPasswd").value = "";
+    socket.on('authSuccess', function(username) {                               // If the authirozation is succesful then this function is called
+        alert("Du er nå innlogget");                                            // Send an alert to the user that the login was succesful
+        document.getElementById("loginUname").value = "";                       // Clears the username-field
+        document.getElementById("loginPasswd").value = "";                      // Clears the password-field
     });
-    socket.on('authFail', function() {
-        alert("Feil passord!");
-        document.getElementById("loginPasswd").value = "";
+    socket.on('authFail', function() {                                          // If the autherization fails then this function is called
+        alert("Feil passord!");                                                 // Assumes that it is becaus of wrong password and notifies the user
+        document.getElementById("loginPasswd").value = "";                      // Clears the password-field
     });
 }
 
@@ -126,8 +126,3 @@ function stopDataFromBoard() { //Tells the server to stop all timers so that dat
     socket.emit('stopDataFromBoard'); //Here we tell the server to call the function "stopDataFromBoard"
     console.log("stopDataFromBoard was called");
 }
-
-// TODO:
-// 2. Logging in must be a bit smoother
-// 3. Polish CSS
-// 4. Decide the fate of script.js

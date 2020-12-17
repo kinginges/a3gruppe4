@@ -23,25 +23,25 @@
                   To define the element that can be draged you use the "dragElement" property here, to define what element that can be used
                   to actually drag the object (the element you click on to begin dragging) you use the "dragBox" property here.
                                                                  -->
-                      <div>
+                      <div><!-- Here we register a new user -->
                           <h3>Ny bruker</h3><br>
                           <p>Brukernavn:</p>
-                          <input type="text" id="regUname"><br><br>
+                          <input type="text" id="regUname"><br><br><!-- Creates a text field and marks it with the id regUname -->
                           <p>Passord:</p>
-                          <input type="password" id="regPasswd"><br><br>
+                          <input type="password" id="regPasswd"><br><br><!-- Creates a password field and marks it with the id regPasswd -->
                           <p>Bekreft passord:</p>
-                          <input type="password" id="regPasswdConfirm"><br><br>
+                          <input type="password" id="regPasswdConfirm"><br><br><!-- Creates a password field and marks it with the id regPasswdConfirm -->
                           <p>Registreringsnøkkel:</p>
-                          <input type="password" id="regKey"><br><br>
-                          <div onclick="register()">Registrer</div>
+                          <input type="password" id="regKey"><br><br><!-- Creates a password field and marks it with the id regKey -->
+                          <div onclick="register()">Registrer</div><!-- Creates a textfield and gives it the onclick attribute which calls the function register() -->
                       </div>
                       <div>
-                          <h3>Logg inn</h3><br>
+                          <h3>Logg inn</h3><br><!-- Here we login a user -->
                           <p>Brukernavn:</p>
-                          <input type="text" id="loginUname"><br><br>
+                          <input type="text" id="loginUname"><br><br><!-- Creates a text field and marks it with the id loginUname -->
                           <p>Passord:</p>
-                          <input type="password" id="loginPasswd"><br><br>
-                          <div onclick="login()">Logg inn</div>
+                          <input type="password" id="loginPasswd"><br><br><!-- Creates a password field and marks it with the id loginPassword -->
+                          <div onclick="login()">Logg inn</div><!-- Creates a div ekement and gives it the onclick attribute which calls the function login() when the user clicks the element -->
                       </div>
                   </div>
 
