@@ -1,4 +1,4 @@
-# a3gruppe4
+# Smarthjem
 
 Les dette før du tester plattformen:
 
